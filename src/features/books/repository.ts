@@ -1,16 +1,53 @@
 import { getDb } from '../../db/client';
-import type { Book } from './types';
+import type { Book, BookStatus } from './types';
 
 // API local: consultar, cadastrar, atualizar, deletar (espelha rotas REST)
-export async function listBooks(search?: string): Promise<Book[]> {
+export async function listBooks(search?: string, status?: BookStatus | 'todos'): Promise<Book[]> {
   const db = getDb();
+  const clauses: string[] = [];
+  const params: (string)[] = [];
   if (search?.trim()) {
-    return db.getAllAsync<Book>(
-      `SELECT * FROM books WHERE titulo LIKE ? OR autor LIKE ? ORDER BY updatedAt DESC`,
-      [`%${search}%`, `%${search}%`],
-    );
+    clauses.push(`(titulo LIKE ? OR autor LIKE ?)`);
+    params.push(`%${search}%`, `%${search}%`);
   }
-  return db.getAllAsync<Book>(`SELECT * FROM books ORDER BY updatedAt DESC`);
+  if (status && status !== 'todos') {
+    clauses.push(`status = ?`);
+    params.push(status);
+  }
+  const where = clauses.length ? `WHERE ${clauses.join(' AND ')}` : '';
+  return db.getAllAsync<Book>(`SELECT * FROM books ${where} ORDER BY updatedAt DESC`, params);
+}
+
+export interface BookStats {
+  total: number;
+  queroLer: number;
+  lendo: number;
+  lidos: number;
+  pctLidos: number;
+  mediaNotas: number;
+  totalPaginas: number;
+}
+
+export async function getStats(): Promise<BookStats> {
+  const db = getDb();
+  const rows = await db.getAllAsync<{ status: BookStatus; n: number }>(
+    `SELECT status, COUNT(*) as n FROM books GROUP BY status`,
+  );
+  const count = (s: BookStatus) => rows.find((r) => r.status === s)?.n ?? 0;
+  const agg = await db.getFirstAsync<{ total: number; media: number | null; paginas: number | null }>(
+    `SELECT COUNT(*) as total, AVG(nota) as media, SUM(paginas) as paginas FROM books`,
+  );
+  const total = agg?.total ?? 0;
+  const lidos = count('lido');
+  return {
+    total,
+    queroLer: count('quero_ler'),
+    lendo: count('lendo'),
+    lidos,
+    pctLidos: total ? Math.round((lidos / total) * 100) : 0,
+    mediaNotas: agg?.media ? Math.round(agg.media * 10) / 10 : 0,
+    totalPaginas: agg?.paginas ?? 0,
+  };
 }
 
 export async function getBook(id: number): Promise<Book | null> {
