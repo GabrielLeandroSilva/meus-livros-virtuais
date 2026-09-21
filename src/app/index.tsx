@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { router, useFocusEffect } from 'expo-router';
+import { useCallback, useEffect, useState } from 'react';
 import { FlatList, Text, View } from 'react-native';
 import { Button } from '../components/Button';
 import { CardLivro } from '../components/CardLivro';
@@ -28,6 +29,14 @@ export default function Home() {
     return () => clearTimeout(t);
   }, [search, ready]);
 
+  useFocusEffect(
+    useCallback(() => {
+      if (!ready) return;
+      (async () => setBooks(await listBooks()))();
+      setSearch('');
+    }, [ready]),
+  );
+
   return (
     <View className="flex-1 bg-white px-4 pt-6">
       <Text className="text-2xl font-bold text-primary-600">Meus Livros Virtuais</Text>
@@ -49,12 +58,11 @@ export default function Home() {
             />
           ) : null
         }
-        renderItem={({ item }) => <CardLivro book={item} />}
+        renderItem={({ item }) => <CardLivro book={item} onPress={() => router.push(`/book/${item.id}`)} />}
         ListFooterComponent={
           ready ? (
             <View className="mt-2">
-              {/* TODO Passo 3: navegar para /form */}
-              <Button title="+ Adicionar livro" onPress={() => {}} />
+              <Button title="+ Adicionar livro" onPress={() => router.push('/form')} />
             </View>
           ) : null
         }
