@@ -27,6 +27,14 @@
       "expo-status-bar",
       "expo-sqlite",
       [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#1D4ED8",
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 200
+        }
+      ],
+      [
         "expo-camera",
         {
           "cameraPermission": "Permitir que Meus Livros Virtuais acesse a câmera para escanear o ISBN dos livros",
