@@ -8,6 +8,7 @@ export default function RootLayout() {
       <Stack.Screen name="form" options={{ title: 'Cadastrar livro' }} />
       <Stack.Screen name="book/[id]" options={{ title: 'Detalhes' }} />
       <Stack.Screen name="stats" options={{ title: 'Estatísticas' }} />
+      <Stack.Screen name="scan" options={{ title: 'Escanear livro' }} />
     </Stack>
   );
 }

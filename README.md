@@ -33,12 +33,12 @@ npx expo run:android
 ## Checklist (resumo)
 - [x] Passo 0: pré-requisitos, paleta, modelo, repo
 - [x] Passo 1: scaffold Expo + NativeWind + Router + SQLite
-- [ ] Passo 2: Design System (Button, Input, CardLivro, Rating)
-- [ ] Passo 3-4: CRUD + busca/filtro + estatísticas
-- [ ] Passo 5: scan ISBN + OCR fallback
+- [x] Passo 2: Design System (Button, Input, CardLivro, Rating)
+- [x] Passo 3-4: CRUD + busca/filtro + estatísticas
+- [x] Passo 5: scan ISBN + OCR fallback
 - [ ] Passo 6: APK sideload
 
-## Pré-requisitos pendentes na máquina
-- Java 17+ (atual é 1.8 — instalar Temurin 17 ou Android Studio bundled JDK)
-- Android SDK (`ANDROID_HOME`) via Android Studio para gerar APK local
+## Pré-requisitos (resolvidos)
+- Java: JBR do Android Studio + `JAVA_HOME` configurado
+- Android SDK com `ANDROID_HOME` configurado
 - Expo Go no celular para testes sem build

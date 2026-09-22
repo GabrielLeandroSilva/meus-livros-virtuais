@@ -88,8 +88,9 @@ export default function Home() {
         renderItem={({ item }) => <CardLivro book={item} onPress={() => router.push(`/book/${item.id}`)} />}
         ListFooterComponent={
           ready ? (
-            <View className="mt-2">
+            <View className="mt-2 gap-2">
               <Button title="+ Adicionar livro" onPress={() => router.push('/form')} />
+              <Button title="📷 Escanear ISBN" variant="secondary" onPress={() => router.push('/scan')} />
             </View>
           ) : null
         }

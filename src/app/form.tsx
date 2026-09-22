@@ -15,19 +15,30 @@ const STATUS: { value: BookStatus; label: string }[] = [
 ];
 
 export default function Form() {
-  const { id } = useLocalSearchParams<{ id?: string }>();
-  const editingId = id ? Number(id) : null;
+  const params = useLocalSearchParams<{
+    id?: string;
+    titulo?: string;
+    autor?: string;
+    editora?: string;
+    ano?: string;
+    isbn?: string;
+    genero?: string;
+    paginas?: string;
+    descricao?: string;
+  }>();
+  const editingId = params.id ? Number(params.id) : null;
+  const str = (v: string | string[] | undefined) => (typeof v === 'string' ? v : '');
 
-  const [titulo, setTitulo] = useState('');
-  const [autor, setAutor] = useState('');
-  const [editora, setEditora] = useState('');
-  const [ano, setAno] = useState('');
-  const [isbn, setIsbn] = useState('');
-  const [genero, setGenero] = useState('');
-  const [paginas, setPaginas] = useState('');
+  const [titulo, setTitulo] = useState(() => str(params.titulo));
+  const [autor, setAutor] = useState(() => str(params.autor));
+  const [editora, setEditora] = useState(() => str(params.editora));
+  const [ano, setAno] = useState(() => str(params.ano));
+  const [isbn, setIsbn] = useState(() => str(params.isbn));
+  const [genero, setGenero] = useState(() => str(params.genero));
+  const [paginas, setPaginas] = useState(() => str(params.paginas));
   const [status, setStatus] = useState<BookStatus>('quero_ler');
   const [nota, setNota] = useState(0);
-  const [descricao, setDescricao] = useState('');
+  const [descricao, setDescricao] = useState(() => str(params.descricao));
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
 
@@ -86,6 +97,11 @@ export default function Form() {
       <Text className="mb-4 text-xl font-bold text-slate-900">
         {editingId ? 'Editar livro' : 'Novo livro'}
       </Text>
+      {!editingId ? (
+        <View className="mb-4">
+          <Button title="📷 Escanear ISBN em vez de digitar" variant="secondary" onPress={() => router.replace('/scan')} />
+        </View>
+      ) : null}
       <Input label="Título *" value={titulo} onChangeText={setTitulo} placeholder="Ex.: Dom Casmurro" error={errors.titulo} />
       <Input label="Autor *" value={autor} onChangeText={setAutor} placeholder="Ex.: Machado de Assis" error={errors.autor} />
       <View className="flex-row gap-2">
