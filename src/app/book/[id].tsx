@@ -43,7 +43,10 @@ export default function Detail() {
   const meta = [book.editora, book.ano ? String(book.ano) : null, book.genero].filter(Boolean).join(' • ');
 
   return (
-    <ScrollView className="flex-1 bg-white px-4 py-4">
+    <ScrollView
+      className="flex-1 bg-white px-4 py-4"
+      contentContainerStyle={{ paddingBottom: 40, flexGrow: 1 }}
+    >
       <BadgeStatus status={book.status} />
       <Text className="mt-2 text-2xl font-bold text-slate-900">{book.titulo}</Text>
       <Text className="mt-1 text-base text-slate-500">{book.autor}</Text>

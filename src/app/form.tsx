@@ -93,7 +93,11 @@ export default function Form() {
   }
 
   return (
-    <ScrollView className="flex-1 bg-white px-4 py-4" keyboardShouldPersistTaps="handled">
+    <ScrollView
+      className="flex-1 bg-white px-4 py-4"
+      contentContainerStyle={{ paddingBottom: 40, flexGrow: 1 }}
+      keyboardShouldPersistTaps="handled"
+    >
       <Text className="mb-4 text-xl font-bold text-slate-900">
         {editingId ? 'Editar livro' : 'Novo livro'}
       </Text>

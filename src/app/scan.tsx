@@ -1,7 +1,7 @@
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { router } from 'expo-router';
 import { useRef, useState } from 'react';
-import { ActivityIndicator, Pressable, Text, View } from 'react-native';
+import { ActivityIndicator, Pressable, ScrollView, Text, View } from 'react-native';
 import { Button } from '../components/Button';
 import { lookupByIsbn, type GoogleBookResult } from '../services/googleBooks';
 import { ocrTitleFromBase64 } from '../services/ocr';
@@ -116,15 +116,22 @@ export default function Scan() {
         ))}
       </View>
 
-      <CameraView
-        ref={cameraRef}
-        style={{ flex: 1 }}
-        facing="back"
-        barcodeScannerSettings={mode === 'barcode' ? { barcodeTypes: ['ean13', 'ean8', 'upc_a', 'upc_e'] } : undefined}
-        onBarcodeScanned={mode === 'barcode' ? ({ data }) => handleBarcode(data) : undefined}
-      />
+      <View style={{ flex: 1, minHeight: 220 }}>
+        <CameraView
+          ref={cameraRef}
+          style={{ flex: 1 }}
+          facing="back"
+          barcodeScannerSettings={mode === 'barcode' ? { barcodeTypes: ['ean13', 'ean8', 'upc_a', 'upc_e'] } : undefined}
+          onBarcodeScanned={mode === 'barcode' ? ({ data }) => handleBarcode(data) : undefined}
+        />
+      </View>
 
-      <View className="bg-white px-4 py-4">
+      <ScrollView
+        style={{ maxHeight: '55%' }}
+        contentContainerStyle={{ paddingHorizontal: 16, paddingVertical: 16, paddingBottom: 32 }}
+        className="bg-white"
+        keyboardShouldPersistTaps="handled"
+      >
         {busy ? (
           <View className="items-center py-2">
             <ActivityIndicator size="large" color="#2563EB" />
@@ -154,7 +161,7 @@ export default function Scan() {
             <Button title="Cadastrar manualmente" variant="secondary" onPress={() => router.replace('/form')} />
           </View>
         ) : null}
-      </View>
+      </ScrollView>
     </View>
   );
 }
