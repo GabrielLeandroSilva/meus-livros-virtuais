@@ -41,7 +41,7 @@ export function CardLivro({ book, onPress }: Props) {
           </Text>
         ) : null}
         <View className="mt-1.5">
-          <RatingStars value={book.nota} />
+          <RatingStars value={book.nota} size={18} />
         </View>
       </View>
       {/* Corte das páginas */}

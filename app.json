@@ -9,6 +9,7 @@
     "userInterfaceStyle": "light",
     "android": {
       "package": "com.voce.meuslivrosvirtuais",
+      "softwareKeyboardLayoutMode": "resize",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",

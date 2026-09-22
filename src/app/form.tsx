@@ -1,6 +1,6 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from 'react-native';
 import { Button } from '../components/Button';
 import { Input } from '../components/Input';
 import { RatingStars } from '../components/RatingStars';
@@ -93,6 +93,11 @@ export default function Form() {
   }
 
   return (
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={90}
+    >
     <ScrollView
       className="flex-1 bg-white px-4 py-4"
       contentContainerStyle={{ paddingBottom: 40, flexGrow: 1 }}
@@ -148,5 +153,6 @@ export default function Form() {
         <Button title={saving ? 'Salvando...' : editingId ? 'Salvar alterações' : 'Cadastrar livro'} onPress={onSave} disabled={saving} />
       </View>
     </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
