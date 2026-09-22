@@ -1,7 +1,7 @@
 // OCR fallback: envia a foto para o OCR.space e devolve o melhor candidato a título.
 // A foto é processada em memória e descartada — nada é salvo no banco.
-// Troque DEMO_KEY por uma chave gratuita em https://ocr.space/ocrapi para uso frequente.
-const OCR_API_KEY = 'helloworld';
+// Chave em .env (EXPO_PUBLIC_OCR_API_KEY), fora do git. Sem chave, usa a demo limitada.
+const OCR_API_KEY = process.env.EXPO_PUBLIC_OCR_API_KEY || 'helloworld';
 
 export async function ocrTitleFromBase64(base64: string): Promise<string | null> {
   const body =
