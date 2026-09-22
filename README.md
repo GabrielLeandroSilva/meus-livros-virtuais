@@ -51,4 +51,4 @@ Instalar: `adb install -r app-release.apk` (Depuração USB) ou copiar o arquivo
 - [x] Passo 4: filtro por status + estatísticas
 - [x] Passo 5: scan ISBN (Google Books + Open Library) + OCR fallback
 - [x] Extras: card em formato de livro, header primário, splash animada, ícone do app, fix de teclado/scroll
-- [ ] Passo 6: APK release instalado no dispositivo
+- [x] Passo 6: APK release instalado no dispositivo
