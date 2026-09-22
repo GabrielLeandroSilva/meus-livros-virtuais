@@ -58,8 +58,8 @@ export default function Detail() {
       {book.paginas ? <Text className="mt-1 text-sm text-slate-600">{book.paginas} páginas</Text> : null}
       {book.descricao ? <Text className="mt-3 text-base leading-6 text-slate-700">{book.descricao}</Text> : null}
       <View className="mb-8 mt-6 gap-2">
-        <Button title="Editar" onPress={() => router.push(`/form?id=${bookId}`)} />
-        <Button title="Excluir" variant="danger" onPress={onDelete} />
+        <Button title="Editar" icon="pencil-outline" onPress={() => router.push(`/form?id=${bookId}`)} />
+        <Button title="Excluir" icon="trash-outline" variant="danger" onPress={onDelete} />
       </View>
     </ScrollView>
   );

@@ -103,7 +103,7 @@ export default function Form() {
       </Text>
       {!editingId ? (
         <View className="mb-4">
-          <Button title="📷 Escanear ISBN em vez de digitar" variant="secondary" onPress={() => router.replace('/scan')} />
+          <Button title="Escanear ISBN em vez de digitar" icon="camera-outline" variant="secondary" onPress={() => router.replace('/scan')} />
         </View>
       ) : null}
       <Input label="Título *" value={titulo} onChangeText={setTitulo} placeholder="Ex.: Dom Casmurro" error={errors.titulo} />

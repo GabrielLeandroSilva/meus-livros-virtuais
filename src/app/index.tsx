@@ -47,15 +47,9 @@ export default function Home() {
   );
 
   return (
-    <View className="flex-1 bg-white px-4 pt-6">
-      <View className="mt-2 flex-row items-center justify-between">
-        <Text className="text-2xl font-bold text-primary-600">Meus Livros Virtuais</Text>
-        <Text onPress={() => router.push('/stats')} className="text-base font-semibold text-primary-600">
-          📊 Stats
-        </Text>
-      </View>
-      <Text className="mt-1 text-slate-500">
-        {ready ? `${books.length} livro(s) na estante local (SQLite)` : 'Abrindo banco local...'}
+    <View className="flex-1 bg-white px-4 pt-4">
+      <Text className="text-slate-500">
+        {ready ? `Sua estante tem ${books.length} livro(s)` : 'Abrindo sua estante...'}
       </Text>
       <View className="mt-4">
         <SearchBar value={search} onChangeText={setSearch} />
@@ -89,8 +83,8 @@ export default function Home() {
         ListFooterComponent={
           ready ? (
             <View className="mt-2 gap-2">
-              <Button title="+ Adicionar livro" onPress={() => router.push('/form')} />
-              <Button title="📷 Escanear ISBN" variant="secondary" onPress={() => router.push('/scan')} />
+              <Button title="Adicionar livro" icon="add" onPress={() => router.push('/form')} />
+              <Button title="Escanear ISBN" icon="camera-outline" variant="secondary" onPress={() => router.push('/scan')} />
             </View>
           ) : null
         }

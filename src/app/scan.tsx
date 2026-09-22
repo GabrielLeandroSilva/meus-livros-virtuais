@@ -140,7 +140,7 @@ export default function Scan() {
             </Text>
           </View>
         ) : mode === 'ocr' ? (
-          <Button title="📷 Fotografar capa e ler título" onPress={handleOcr} />
+          <Button title="Fotografar capa e ler título" icon="camera-outline" onPress={handleOcr} />
         ) : (
           <Text className="text-center text-sm text-slate-500">
             Aponte a câmera para o código de barras do verso do livro
@@ -151,6 +151,7 @@ export default function Scan() {
           <View className="mt-2">
             <Button
               title="Cadastrar manualmente"
+              icon="create-outline"
               variant="secondary"
               onPress={() => router.replace({ pathname: '/form', params: { isbn: lastIsbn } })}
             />
@@ -158,7 +159,7 @@ export default function Scan() {
         ) : null}
         {error && mode === 'ocr' ? (
           <View className="mt-2">
-            <Button title="Cadastrar manualmente" variant="secondary" onPress={() => router.replace('/form')} />
+            <Button title="Cadastrar manualmente" icon="create-outline" variant="secondary" onPress={() => router.replace('/form')} />
           </View>
         ) : null}
       </ScrollView>
